@@ -1,31 +1,23 @@
 import { useEffect } from 'react';
 import { StatusBar } from 'expo-status-bar';
-import { ActivityIndicator, StyleSheet, View } from 'react-native';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { useAuthStore } from './src/stores/auth';
+import RootNavigation from './src/navigation';
 
 const queryClient = new QueryClient();
 
 function RootLayout() {
-  const { loading, session, initialize } = useAuthStore();
+  const initialize = useAuthStore((s) => s.initialize);
 
   useEffect(() => {
     initialize();
   }, []);
 
-  if (loading) {
-    return (
-      <View style={styles.container}>
-        <ActivityIndicator size="large" />
-      </View>
-    );
-  }
-
-  // TODO: Replace with React Navigation (AuthStack / MainTabs)
   return (
-    <View style={styles.container}>
+    <>
       <StatusBar style="auto" />
-    </View>
+      <RootNavigation />
+    </>
   );
 }
 
@@ -36,12 +28,3 @@ export default function App() {
     </QueryClientProvider>
   );
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-});
