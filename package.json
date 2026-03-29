@@ -1,0 +1,18 @@
+{
+  "name": "tribee",
+  "private": true,
+  "workspaces": [
+    "packages/*"
+  ],
+  "scripts": {
+    "api:dev": "npm run dev -w packages/api",
+    "api:build": "npm run build -w packages/api",
+    "api:start": "npm run start -w packages/api",
+    "mobile:start": "npm run start -w packages/mobile",
+    "mobile:ios": "npm run ios -w packages/mobile",
+    "mobile:android": "npm run android -w packages/mobile"
+  },
+  "engines": {
+    "node": ">=20.0.0"
+  }
+}
