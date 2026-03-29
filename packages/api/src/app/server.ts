@@ -4,6 +4,7 @@ import sensible from '@fastify/sensible';
 import { config } from './config/index.js';
 import { AppError } from '../shared/errors.js';
 import { identityRoutes } from '../modules/identity/routes.js';
+import { tripRoutes } from '../modules/trips/routes.js';
 
 const app = Fastify({ logger: true });
 
@@ -27,6 +28,7 @@ app.setErrorHandler((error, request, reply) => {
 app.get('/health', async () => ({ status: 'ok' }));
 
 await app.register(identityRoutes, { prefix: '/api/v1' });
+await app.register(tripRoutes, { prefix: '/api/v1' });
 
 try {
   await app.listen({ port: config.port, host: config.host });
